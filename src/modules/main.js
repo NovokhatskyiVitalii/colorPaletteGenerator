@@ -53,7 +53,21 @@ function generateMonochromaticPalette(hsl, count) {
   return palette;
 }
 
+function generateTriadicPalette(hsl, count) {
+  const palette = [];
+  let [hue, saturation, lightness] = hsl;
+  // in triadic increase hue by 120
+  for (let i = 0; i < count; i++) {
+    let newHue = hue + 120 * i;
+    if (newHue > 360) {
+      newHue -= 360;
+    }
+    palette.push([newHue, saturation, lightness]);
+  }
+  return palette;
+}
+
 // let hsl = [155, 55, 55];
 
-// let palette = (hsl, 6);
+// let palette = generateTriadicPalette(hsl, 6);
 // console.log(palette);
