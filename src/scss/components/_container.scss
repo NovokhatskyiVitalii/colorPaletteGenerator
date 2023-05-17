@@ -1,14 +1,13 @@
 .container {
     width: 100%;
     max-width: 1000px;
-    min-height: 100vh;
+    min-height: 150vh;
     margin: 0 auto;
     padding: 20px;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    margin-block-start: 80px;
 
     .title {
         font-size: 38px;
@@ -167,6 +166,77 @@
             &:hover .overlay {
                 transform: scale(1);
                 opacity: 1;
+            }
+        }
+    }
+
+    @media (max-width:768px) {
+        justify-content: flex-start;
+
+        input[type="text"] {
+            height: 50px;
+            font-size: 14px;
+        }
+
+        .title {
+            font-size: 24px;
+        }
+
+        .desc {
+            font-size: 13px;
+        }
+
+        .search {
+
+            .code {
+                height: 50%;
+
+                .search-color {
+                    width: 15px;
+                    height: 15px;
+                    right: 10px;
+                }
+            }
+
+            .image {
+                width: 50px;
+                height: 50px;
+            }
+        }
+
+        .options {
+
+            select,
+            .btn {
+                height: 50px;
+                font-size: 14px;
+            }
+
+
+
+        }
+
+        .palette {
+            .color {
+                height: 70px;
+
+                .overlay {
+                    font-size: 10px;
+
+                    .icons {
+                        div {
+                            width: 20px;
+                            height: 20px;
+                        }
+                    }
+
+                    .code {
+                        line-height: 20px;
+                        width: 50px;
+                        padding: 0 5px;
+                    }
+                }
+
             }
         }
     }
