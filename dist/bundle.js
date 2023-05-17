@@ -1,0 +1,1 @@
+(()=>{"use strict";document.querySelector("#search-input"),document.querySelector(".search-color"),document.querySelector("#search-image"),document.querySelector("#palette-type"),document.querySelector("#palette-count"),document.querySelector("#random-btn"),document.querySelector("#palette"),document.querySelector("#related")})();
