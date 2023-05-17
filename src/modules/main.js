@@ -36,3 +36,24 @@ function generateAnalogousPalette(hsl, count) {
   // after getting all colors return palette
   return palette;
 }
+
+function generateMonochromaticPalette(hsl, count) {
+  //same in this but instead of hue increase lightness bu 10
+  const palette = [];
+  let [hue, saturation, lightness] = hsl;
+
+  for (let i = 0; i < count; i++) {
+    let newLightness = (lightness = 10 * i);
+    if (newLightness > 100) {
+      //lightness cannot be greater than 100
+      newLightness -= 100;
+    }
+    palette.push([hue, saturation, newLightness]);
+  }
+  return palette;
+}
+
+// let hsl = [155, 55, 55];
+
+// let palette = (hsl, 6);
+// console.log(palette);
