@@ -81,11 +81,37 @@ function generateCompoundPalette(hsl, count) {
   return palette;
 }
 
-// function generatorShadesPalette(hsl, count) {
+function generatorShadesPalette(hsl, count) {
+  const palette = [];
+  let [hue, saturation, lightness] = hsl;
+  //to get shades increase saturation by 10
+  for (let i = 0; i < count; i++) {
+    let newSaturation = saturation + 10 * i;
+    if (newSaturation > 100) {
+      //saturation cant be greater than 100
+      newSaturation -= 100;
+    }
+    palette.push([hue, newSaturation, lightness]);
+  }
+  return palette;
+}
 
+// function generatorTetradicPalette(hsl, count) {
+//   const palette = [];
+//   let [hue, saturation, lightness] = hsl;
+//   //to get shades increase saturation by 10
+//   for (let i = 0; i < count; i++) {
+//     let newSaturation = saturation + 10 * i;
+//     if (newSaturation > 100) {
+//       //saturation cant be greater than 100
+//       newSaturation -= 100;
+//     }
+//     palette.push([hue, newSaturation, lightness]);
+//   }
+//   return palette;
 // }
 
-let hsl = [155, 55, 55];
+// let hsl = [155, 55, 55];
 
-let palette = (hsl, 6);
-console.log(palette);
+// let palette = (hsl, 6);
+// console.log(palette);
