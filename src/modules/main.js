@@ -96,22 +96,22 @@ function generatorShadesPalette(hsl, count) {
   return palette;
 }
 
-// function generatorTetradicPalette(hsl, count) {
-//   const palette = [];
-//   let [hue, saturation, lightness] = hsl;
-//   //to get shades increase saturation by 10
-//   for (let i = 0; i < count; i++) {
-//     let newSaturation = saturation + 10 * i;
-//     if (newSaturation > 100) {
-//       //saturation cant be greater than 100
-//       newSaturation -= 100;
-//     }
-//     palette.push([hue, newSaturation, lightness]);
-//   }
-//   return palette;
-// }
+function generatorTetradicPalette(hsl, count) {
+  const palette = [];
+  let [hue, saturation, lightness] = hsl;
+  //to get shades increase saturation by 90
+  for (let i = 0; i < count; i++) {
+    let newHue = hue + 90 * i;
+    if (newHue > 360) {
+      //saturation cant be greater than 100
+      newHue -= 360;
+    }
+    palette.push([newHue, saturation, lightness]);
+  }
+  return palette;
+}
 
-// let hsl = [155, 55, 55];
+let hsl = [155, 55, 55];
 
-// let palette = (hsl, 6);
-// console.log(palette);
+let palette = generatorTetradicPalette(hsl, 6);
+console.log(palette);
