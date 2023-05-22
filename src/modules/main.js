@@ -111,7 +111,72 @@ function generatorTetradicPalette(hsl, count) {
   return palette;
 }
 
+function generatorSquarePalette(hsl, count) {
+  const palette = [];
+  let [hue, saturation, lightness] = hsl;
+  //to get shades increase saturation by 60
+  for (let i = 0; i < count; i++) {
+    let newHue = hue + 60 * i;
+    if (newHue > 360) {
+      //saturation cant be greater than 100
+      newHue -= 360;
+    }
+    palette.push([newHue, saturation, lightness]);
+  }
+  return palette;
+}
+
+function generateRelatedColorPanel(hsl, count) {
+  const palette = [];
+  const [hue, saturation, lightness] = hsl;
+
+  // to get related colors we`ll play with hue, saturation and lightness
+
+  // increase saturation by 20 and if great than 100 reduce
+  palette.push([hue, (saturation + 20) % 100, lightness]);
+  // decrease by 20
+  palette.push([hue, (saturation - 20) % 100, lightness]);
+  // increase lightness by 20
+  palette.push([hue, saturation, (lightness + 20) % 100]);
+  //decrease lightness
+  palette.push([hue, saturation, (lightness - 20) % 100]);
+  // same with hue
+  palette.push([(hue + 20) % 360, saturation, lightness]);
+  palette.push([(hue - 20) % 360, saturation, lightness]);
+
+  //shuffle array
+  for (let i = palette.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [palette[i], palette[j]] = [palette[j], palette[i]];
+  }
+
+  return palette;
+}
+
+// a function a to call specific function above based on specific type
+
+function generatePalette(hsl, type, count) {
+  switch (type) {
+    case "analogous":
+      return generateAnalogousPalette(hsl, count);
+    case "monochromatic":
+      return generateMonochromaticPalette(hsl, count);
+    case "triadic":
+      return generateTriadicPalette(hsl, count);
+    case "compound":
+      return generateCompoundPalette(hsl, count);
+    case "shades":
+      return generatorShadesPalette(hsl, count);
+    case "tetradic":
+      return generatorTetradicPalette(hsl, count);
+    case "square":
+      return generatorSquarePalette(hsl, count);
+    case "related":
+      return generateRelatedColorPanel(hsl, count);
+  }
+}
+
 let hsl = [155, 55, 55];
 
-let palette = generatorTetradicPalette(hsl, 6);
+let palette = generatePalette(hsl, "monochromatic", 6);
 console.log(palette);
