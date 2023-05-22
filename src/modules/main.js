@@ -214,3 +214,41 @@ function isValidColor(color) {
   // a function to check if a given value is valid css
   return CSS.supports("color", color);
 }
+
+function removeRGB(rgb) {
+  return rgb.replace("rgb(", "").replace(")", "").split(",");
+}
+
+function rgbToHsl(rgb) {
+  let r = rgb[0] / 255;
+  let g = rgb[1] / 255;
+  let b = rgb[2] / 255;
+
+  let cMin = Math.min(r, g, b);
+  let cMax = Math.max(r, g, b);
+  let delta = cMax - cMin;
+  let h = 0;
+  let s = 0;
+  let l = (cMin + cMax) / 2;
+
+  if (delta === 0) {
+    h = 0;
+    s = 0;
+  } else if (cMax === r) {
+    h = ((g - b) / delta) % 6;
+  } else if (cMax === g) {
+    h = (b - r) / delta + 2;
+  } else {
+    h = (r - g) / delta + 4;
+  }
+
+  h = Math.round(h * 60);
+  if (h < 0) {
+    h += 360;
+  }
+  if (delta !== 0) {
+    s = Math.round((delta / (1 - Math.abs(2 * l - 1))) * 100);
+  }
+  l = Math.round(l * 100);
+  return [h, s, l];
+}
