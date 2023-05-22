@@ -184,3 +184,33 @@ function generatePaletteHtml(type, container) {
   // we can give any type of color like name of color, rgb, hex to get hsl
   const hsl = getHslFromColor(color);
 }
+
+function getHslFromColor(color) {
+  // to get hsl from any type of given color
+  let hsl;
+  if (isValidColor(color)) {
+    //id valid color name, hex, rgb, given
+    // create a temp div element give it color and that get color from that div which will be rgb always then we can convert rgb to hsl
+    let temp = document.createElement("div");
+    temp.style.color = color;
+    document.body.appendChild(temp);
+    // get all styles of temp div
+    let styles = window.getComputedStyle(temp, null);
+    // get only color from styles
+    let rgb = styles.getPropertyValue("color");
+    // no need of temp div remove it
+    document.body.removeChild(temp);
+    // remove rgb from rgb (255, 255, 255) to [255, 255, 255]
+    rgb = removeRGB(rgb);
+    // convert rgb array to hsl
+    hsl = rgbToHsl(rgb);
+  }
+
+  return hsl;
+}
+
+function isValidColor(color) {
+  // check color validity
+  // a function to check if a given value is valid css
+  return CSS.supports("color", color);
+}
