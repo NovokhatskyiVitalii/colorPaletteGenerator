@@ -183,6 +183,19 @@ function generatePaletteHtml(type, container) {
   let count = currentCount;
   // we can give any type of color like name of color, rgb, hex to get hsl
   const hsl = getHslFromColor(color);
+  // if hsl null do nothing
+  if (!hsl) return;
+  let palette = [];
+  container.innerHTML = "";
+  palette = generatePalette(hsl, type, count);
+  palette.forEach((color) => {
+    // convert hsl color to hex
+    color = HslToHex(color);
+    const colorEl = document.createElement("div");
+    colorEl.classList.add("color");
+    colorEl.style.backgroundColor = color;
+    container.appendChild(colorEl);
+  });
 }
 
 function getHslFromColor(color) {
@@ -251,4 +264,21 @@ function rgbToHsl(rgb) {
   }
   l = Math.round(l * 100);
   return [h, s, l];
+}
+
+function HslToHex(hsl) {
+  let h = hsl[0];
+  let s = hsl[1];
+  let l = hsl[2];
+  l /= 100;
+  const a = (s * Math.min(l, 1 - l)) / 100;
+  const f = (n) => {
+    const k = (n + h / 30) % 12;
+    const color = l - a * Math.max(Math.min(k - 3, 9 - k, 1), -1);
+    return Math.round(255 * color)
+      .toString(16)
+      .padStart(2, "0");
+  };
+
+  return `#${f(0)}${f(8)}${f(4)}`;
 }
