@@ -176,7 +176,11 @@ function generatePalette(hsl, type, count) {
   }
 }
 
-let hsl = [155, 55, 55];
-
-let palette = generatePalette(hsl, "monochromatic", 6);
-console.log(palette);
+// function generate HTML of palette
+function generatePaletteHtml(type, container) {
+  // container means for which container palette or related
+  let color = currentColor;
+  let count = currentCount;
+  // we can give any type of color like name of color, rgb, hex to get hsl
+  const hsl = getHslFromColor(color);
+}
