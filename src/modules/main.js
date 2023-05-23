@@ -309,6 +309,35 @@ function getRandomColor() {
   return color;
 }
 
+// function copy clip board
+function copyClipBoard(text) {
+  const input = document.createElement("input");
+  input.value = text;
+  document.body.appendChild(input);
+  input.select();
+  document.execCommand("copy");
+  input.remove();
+}
+
+function toast(message) {
+  const toast = document.createElement("div");
+  toast.classList.add("toast");
+  toast.textContent = message;
+  document.body.appendChild(toast);
+  //add show class after some time to animate
+  setTimeout(() => {
+    toast.classList.add("show");
+  }, 10);
+
+  // remove after 2 sec
+  setTimeout(() => {
+    toast.classList.remove("show");
+    toast.addEventListener("transitionend", () => {
+      toast.remove();
+    });
+  }, 2000);
+}
+
 generatePaletteHtml(currentType, paletteContainer);
 generatePaletteHtml("related", relatedContainer);
 
@@ -345,4 +374,17 @@ randomBtn.addEventListener("click", (e) => {
   currentColor = randomColor;
   generatePaletteHtml(currentType, paletteContainer);
   generatePaletteHtml("related", relatedContainer);
+});
+
+// add event listener on each color
+const palettes = document.querySelectorAll(".palette");
+palettes.forEach((palette) => {
+  palette.addEventListener("click", (e) => {
+    const target = e.target;
+    const color = e.target.parentElement.parentElement.children[1].textContent;
+    if (target.classList.contains("copy-color")) {
+      copyClipBoard(color);
+      toast(`Color ${color} copied to clipboard`);
+    }
+  });
 });
