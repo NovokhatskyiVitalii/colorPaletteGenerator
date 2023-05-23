@@ -10,7 +10,7 @@ const searchInput = document.querySelector("#search-input"),
   relatedContainer = document.querySelector("#related");
 
 let currentColor = "skyblue",
-  currentType = "analogous",
+  currentType = "monochromatic",
   currentCount = "6",
   imageColors = [];
 
@@ -194,6 +194,21 @@ function generatePaletteHtml(type, container) {
     const colorEl = document.createElement("div");
     colorEl.classList.add("color");
     colorEl.style.backgroundColor = color;
+
+    colorEl.innerHTML = `
+        <div class="overlay">
+          <div class="icons">
+            <div class="copy-color">
+                <i class="far fa-copy"></i>
+            </div>
+            <div class="generate-palette">
+                <i class="fas fa-palette"></i>
+            </div>
+          </div>
+            <div class="code">${color}</div>
+        </div>
+    `;
+
     container.appendChild(colorEl);
   });
 }
@@ -282,3 +297,6 @@ function HslToHex(hsl) {
 
   return `#${f(0)}${f(8)}${f(4)}`;
 }
+
+generatePaletteHtml(currentType, paletteContainer);
+generatePaletteHtml("related", relatedContainer);
