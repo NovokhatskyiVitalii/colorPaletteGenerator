@@ -299,6 +299,16 @@ function HslToHex(hsl) {
   return `#${f(0)}${f(8)}${f(4)}`;
 }
 
+// function generate random color
+function getRandomColor() {
+  const letters = "0123456789ABCDEF";
+  let color = "#";
+  for (let i = 0; i < 6; i++) {
+    color += letters[Math.floor(Math.random() * 16)];
+  }
+  return color;
+}
+
 generatePaletteHtml(currentType, paletteContainer);
 generatePaletteHtml("related", relatedContainer);
 
@@ -320,4 +330,19 @@ typeSelect.addEventListener("change", (e) => {
   currentType = value;
   typeText.textContent = value + "Palette";
   generatePaletteHtml(currentType, paletteContainer);
+});
+
+countSelect.addEventListener("change", (e) => {
+  const value = e.target.value;
+  currentCount = value;
+  generatePaletteHtml(currentType, paletteContainer);
+});
+
+randomBtn.addEventListener("click", (e) => {
+  const randomColor = getRandomColor();
+  searchInput.value = randomColor;
+  searchColor.style.backgroundColor = randomColor;
+  currentColor = randomColor;
+  generatePaletteHtml(currentType, paletteContainer);
+  generatePaletteHtml("related", relatedContainer);
 });
