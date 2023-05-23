@@ -300,3 +300,16 @@ function HslToHex(hsl) {
 
 generatePaletteHtml(currentType, paletteContainer);
 generatePaletteHtml("related", relatedContainer);
+
+// generate palette when a color is written in input
+
+searchInput.addEventListener("keyup", (e) => {
+  const value = e.target.value;
+  if (isValidColor(value)) {
+    // if valid color written
+    searchColor.style.backgroundColor = value;
+    currentColor = value;
+    generatePaletteHtml(currentType, paletteContainer);
+    generatePaletteHtml("related", relatedContainer);
+  }
+});
