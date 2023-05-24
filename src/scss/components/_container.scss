@@ -37,7 +37,7 @@
                 width: 25px;
                 height: 25px;
                 border-radius: 50%;
-                background-color: red;
+                transition: 0.3s ease-in;
             }
         }
 
@@ -170,6 +170,7 @@
             &:hover .overlay {
                 transform: scale(1);
                 opacity: 1;
+                transition: 0.3s ease-in;
             }
         }
     }
