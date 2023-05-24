@@ -7,16 +7,18 @@
     font-family: "Poppins", sans-serif;
 }
 
-body {
-    background-color: $body-bg-color;
 
-    &.dark {
-        $primary-color: #303030;
-        $secondary-color: #ffffff;
-        $tertiary-color: #ffffff;
-        $quaternary-color: #9ea6ab;
-        $body-bg-color: #1e1e1e;
-    }
+
+body.dark {
+    --primary-color: #303030;
+    --secondary-color: #ffffff;
+    --tertiary-color: #ffffff;
+    --quaternary-color: #9ea6ab;
+    --body-bg-color: #1e1e1e;
+}
+
+body {
+    background-color: var(--body-bg-color);
 }
 
 div {
@@ -31,8 +33,8 @@ input[type="text"] {
     outline: none;
     width: 100%;
     font-size: 16px;
-    background: $primary-color;
-    color: $quaternary-color;
+    background: var(--primary-color);
+    color: var(--quaternary-color);
 }
 
 .btn {
@@ -42,13 +44,13 @@ input[type="text"] {
     padding: 0 10px;
     font-size: 16px;
     outline: none;
-    color: $quaternary-color;
+    color: var(--quaternary-color);
     cursor: pointer;
-    background-color: $primary-color;
+    background-color: var(--primary-color);
     transition: all 0.20s ease-in;
 
     &:hover {
-        color: $primary-color;
-        background-color: $quaternary-color;
+        color: var(--primary-color);
+        background-color: var(--quaternary-color);
     }
 }

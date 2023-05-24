@@ -12,13 +12,13 @@
     .title {
         font-size: 38px;
         font-weight: 300;
-        color: $secondary-color;
+        color: var(--secondary-color);
     }
 
     .desc {
         font-size: 16px;
         font-weight: 300;
-        color: $quaternary-color;
+        color: var(--quaternary-color);
     }
 
     .search {
@@ -38,6 +38,7 @@
                 height: 25px;
                 border-radius: 50%;
                 transition: 0.3s ease-in;
+                color: skyblue;
             }
         }
 
@@ -48,13 +49,13 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            color: $quaternary-color;
-            background: $primary-color;
+            color: var(--quaternary-color);
+            background: var(--primary-color);
             cursor: pointer;
             border: 1px dashed #ddd;
 
             &:hover {
-                border-color: $quaternary-color;
+                border-color: var(--quaternary-color);
             }
         }
     }
@@ -71,8 +72,8 @@
             padding: 0 10px;
             font-size: 16px;
             outline: none;
-            color: $quaternary-color;
-            background-color: $primary-color;
+            color: var(--quaternary-color);
+            background-color: var(--primary-color);
             cursor: pointer;
 
             &#palette-count {
@@ -87,12 +88,12 @@
         opacity: 0.7;
         margin: 20px 0;
         font-size: 14px;
-        color: $quaternary-color;
+        color: var(--quaternary-color);
         transition: all 0.3s;
 
         &#random-btn:hover {
             cursor: pointer;
-            color: $secondary-color;
+            color: var(--secondary-color);
         }
     }
 
@@ -101,7 +102,7 @@
         text-transform: capitalize;
         font-size: 14px;
         font-weight: 500;
-        color: $secondary-color;
+        color: var(--secondary-color);
         text-align: left;
         margin-bottom: 10px;
     }
@@ -131,7 +132,7 @@
                 transform: scale(2);
                 opacity: 0;
                 transition: all 0.15s ease-in;
-                background-color: $transparent-color;
+                background-color: var(--transparent-color);
 
 
                 .icons {
@@ -140,7 +141,7 @@
                     justify-content: center;
                     padding: 5px;
                     gap: 12px;
-                    color: $tertiary-color;
+                    color: var(--tertiary-color);
 
                     i {
                         pointer-events: none;
@@ -152,17 +153,17 @@
                         display: flex;
                         align-items: center;
                         justify-content: center;
-                        background-color: $transparent-color;
+                        background-color: var(transparent-color);
                         cursor: pointer;
                     }
                 }
 
                 .code {
-                    color: $tertiary-color;
+                    color: var(--tertiary-color);
                     line-height: 30px;
                     width: 70px;
                     padding: 0 10px;
-                    background-color: $transparent-color;
+                    background-color: var(--transparent-color);
 
                 }
             }

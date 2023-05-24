@@ -545,3 +545,13 @@ downloadBtn.addEventListener("click", () => {
   name = name == "" ? "palette" : name;
   downloadPalette(format, name);
 });
+
+const toggle = document.querySelector("#toggle");
+
+toggle.addEventListener("change", (e) => {
+  if (e.target.checked) {
+    document.body.classList.add("dark");
+  } else {
+    document.body.classList.remove("dark");
+  }
+});
