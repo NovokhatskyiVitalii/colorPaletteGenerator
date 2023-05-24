@@ -8,7 +8,9 @@ const searchInput = document.querySelector("#search-input"),
   countSelect = document.querySelector("#palette-count"),
   randomBtn = document.querySelector("#random-btn"),
   paletteContainer = document.querySelector("#palette"),
-  relatedContainer = document.querySelector("#related");
+  relatedContainer = document.querySelector("#related"),
+  imageColorsContainer = document.querySelector("#image-colors"),
+  imageColorsWrapper = document.querySelector(".image-colors-wrapper");
 
 let currentColor = "skyblue",
   currentType = "monochromatic",
@@ -188,10 +190,20 @@ function generatePaletteHtml(type, container) {
   if (!hsl) return;
   let palette = [];
   container.innerHTML = "";
-  palette = generatePalette(hsl, type, count);
+  // if type is image colors no need to generate palette we have imageColors
+  if (type === "image-colors") {
+    palette = imageColors;
+  } else {
+    palette = generatePalette(hsl, type, count);
+  }
+
   palette.forEach((color) => {
-    // convert hsl color to hex
-    color = HslToHex(color);
+    //if type image colors it already have hex colors so no need to convert
+    if (type != "image-colors") {
+      // convert hsl color to hex
+      color = HslToHex(color);
+    }
+
     const colorEl = document.createElement("div");
     colorEl.classList.add("color");
     colorEl.style.backgroundColor = color;
@@ -199,10 +211,10 @@ function generatePaletteHtml(type, container) {
     colorEl.innerHTML = `
         <div class="overlay">
           <div class="icons">
-            <div class="copy-color">
+            <div class="copy-color" title="Copy color code">
                 <i class="far fa-copy"></i>
             </div>
-            <div class="generate-palette">
+            <div class="generate-palette" tittle="Generate Palette">
                 <i class="fas fa-palette"></i>
             </div>
           </div>
@@ -338,6 +350,18 @@ function toast(message) {
   }, 2000);
 }
 
+function extractColorsFromImage(image) {
+  // we can increase or decrease color to detect by amount
+  prominent(image, { amount: 6, format: "hex" }).then((color) => {
+    // empty image colors array
+    imageColors = [];
+    imageColors.push(...color);
+    generatePaletteHtml("image-colors", imageColorsContainer);
+    // show image colors wrapper
+    imageColorsWrapper.classList.remove("hidden");
+  });
+}
+
 generatePaletteHtml(currentType, paletteContainer);
 generatePaletteHtml("related", relatedContainer);
 
@@ -376,6 +400,21 @@ randomBtn.addEventListener("click", (e) => {
   generatePaletteHtml("related", relatedContainer);
 });
 
+searchImage.addEventListener("change", (e) => {
+  const file = e.target.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.readAsDataURL(file);
+    reader.onload = function () {
+      const image = new Image();
+      image.src = reader.result;
+      image.onload = function () {
+        extractColorsFromImage(image);
+      };
+    };
+  }
+});
+
 // add event listener on each color
 const palettes = document.querySelectorAll(".palette");
 palettes.forEach((palette) => {
@@ -385,6 +424,15 @@ palettes.forEach((palette) => {
     if (target.classList.contains("copy-color")) {
       copyClipBoard(color);
       toast(`Color ${color} copied to clipboard`);
+    }
+    // if generate palette clicked
+    if (target.classList.contains("generate-palette")) {
+      searchInput.value = color;
+      searchColor.style.backgroundColor = color;
+      currentColor = color;
+      generatePaletteHtml(currentType, paletteContainer);
+      generatePaletteHtml("related", relatedContainer);
+      toast("Palette generated for" + color);
     }
   });
 });
